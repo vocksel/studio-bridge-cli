@@ -8,6 +8,13 @@ const program = require('commander');
 const pkg = require('../package.json');
 const server = require('../lib/server.js');
 
+// The port to run the server off of.
+//
+// This is hard-coded as there is currently no way to change the port that the
+// plugin listens on. Allowing the user to change the port the server uses will
+// leave the plugin unable to communicate.
+const PORT = 8080
+
 function failWithHelp(msg) {
   console.log(msg);
   program.help();
@@ -17,13 +24,11 @@ function failWithHelp(msg) {
 program
   .version(pkg.version)
   .arguments('<dir>')
-  .option('-p, --port <port>', 'the port to run the server off of. defaults ' +
-    'to 8080. you also need to change the port that the plugin uses.', 8080)
   .action(dir => {
     const fullPath = path.resolve(dir);
 
     if (fs.existsSync(fullPath)) {
-      server(fullPath, program.port);
+      server(fullPath, PORT);
     } else {
       failWithHelp(`Could not find a directory at ${fullPath}`)
     }
