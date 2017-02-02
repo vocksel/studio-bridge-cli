@@ -27,3 +27,12 @@ Using: /path/to/src/
 The server hosting the contents of your project are served up as JSON at the above URL. With `HttpService.HttpEnabled` set to `true` in your game, you can now use the plugin to sync the files to Studio.
 
 The [main repository][main-repo] has a much more comprehensive example, along with full details on how to structure your projects so everything shows up in the right places.
+
+## Contributing
+
+Clone the repo to your computer and run `npm link` so the `studio-bridge` command points to your development copy.
+
+From there you can modify the CLI itself, or the innerworkings of the server.
+
+- `bin` contains the CLI's code.
+- `lib` contains the server, along with modules for constructing the JSON hierarchy from files.
