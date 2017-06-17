@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const path = require('path');
 
-const fileHelpers = require('../lib/file-helpers');
+const fileHelpers = require('../lib/fileHelpers');
 
 describe('File helpers', function() {
   let mockfs;
