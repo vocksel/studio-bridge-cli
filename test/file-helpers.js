@@ -44,4 +44,16 @@ describe('File helpers', function() {
       expect(getFileContents.bind('/path/to/sample-dir')).to.throw();
     });
   });
+
+  describe('getName()', function() {
+    const getName = fileHelpers.getName;
+
+    it('should return the first part of a dot-separated file name', function() {
+      expect(getName('file.separated.by.dots.lua')).to.equal('file');
+    });
+
+    it('works with directories', function() {
+      expect(getName('/path/to/file.separated.by.dots.lua')).to.equal('file');
+    });
+  });
 });

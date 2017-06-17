@@ -4,22 +4,6 @@ const rewire = require('rewire');
 const tree = rewire('../lib/roblox-tree');
 
 describe('Roblox-based hierarchy constructing', function() {
-  describe('getName()', function() {
-    let getName;
-
-    before(function() {
-      getName = tree.__get__('getName');
-    });
-
-    it('should return the first part of a dot-separated file name', function() {
-      expect(getName('file.separated.by.dots.lua')).to.equal('file');
-    });
-
-    it('works with directories', function() {
-      expect(getName('/path/to/file.separated.by.dots.lua')).to.equal('file');
-    });
-  });
-  
   describe('getScriptClassFromWord()', function() {
     let getClassNameFromKeyword;
 
