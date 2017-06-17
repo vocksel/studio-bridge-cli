@@ -1,6 +1,6 @@
 {
   "name": "studio-bridge",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Synchronize Lua code from your computer to Roblox Studio.",
   "main": "./lib/server.js",
   "bin": {
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vocksel/studio-bridge"
+    "url": "https://github.com/vocksel/studio-bridge-cli"
   },
   "bugs": {
     "url": "https://github.com/vocksel/studio-bridge/issues"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [
     "roblox",
@@ -28,5 +28,10 @@
   "dependencies": {
     "chokidar": "^1.6.1",
     "commander": "^2.9.0"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "rewire": "^2.5.2"
   }
 }
