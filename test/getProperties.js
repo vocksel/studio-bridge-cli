@@ -123,6 +123,8 @@ describe('Getting Roblox properties from files', function() {
       expect(getJsonFileProperties('/bad.json')).to.be.null;
     });
 
+    // TODO Install pascal-case as a dependency and use it in getJsonFileProperties().
+    //
     // it('should error when all its properties are not in PascalCase', function() {
     //   expect(() => getJsonFileProperties('/not-pascal-case.json')).to.throw();
     // });
