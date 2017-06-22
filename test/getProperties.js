@@ -1,7 +1,11 @@
 const rewire = require('rewire')
 const pascalCase = require('pascal-case');
-const expect = require('chai').expect;
+const chai = require('chai');
 const mockfs = require('mock-fs');
+const sinon = require('sinon');
+const expect = chai.expect;
+
+chai.use(require('sinon-chai'));
 
 const getFileContents = require('../lib/fileHelpers').getFileContents;
 const getProperties = rewire('../lib/getProperties');
@@ -126,14 +130,71 @@ describe('Getting Roblox properties from files', function() {
 
 
   describe('getFileProperties()', function() {
-    it('should route files with `.lua` extensions to getLuaFileProperties()');
+    let getFileProperties;
 
-    it('should route files with `.json` extensions to getJsonFileProperties()');
+    before(function() {
+      getLuaFileProperties = getProperties.__get__('getLuaFileProperties');
+      getJsonFileProperties = getProperties.__get__('getJsonFileProperties');
+      getFileProperties = getProperties.__get__('getFileProperties');
+
+      mockfs({
+        '/file.lua': 'print("Hello, World!")',
+        '/file.json': '{ "ClassName": "Instance" }'
+      });
+    })
+
+    after(function() {
+      mockfs.restore();
+    })
+
+    it('should route files with `.lua` extensions to getLuaFileProperties()', function() {
+      const filePath = '/file.lua';
+      expect(getFileProperties(filePath)).to.deep.equal(getLuaFileProperties(filePath))
+    });
+
+    it('should route files with `.json` extensions to getJsonFileProperties()', function() {
+      const filePath = '/file.json';
+      expect(getFileProperties(filePath)).to.deep.equal(getJsonFileProperties(filePath));
+    });
   });
 
   describe('getProperties()', function() {
-    it('should route folders to getFolderProperties()');
+    let getFolderProperties;
+    let getFileProperties;
 
-    it('should route files to getFileProperties()');
+    before(function() {
+      getFolderProperties = getProperties.__get__('getFolderProperties');
+
+      mockfs({
+        '/folder': {},
+        '/file.ext': ''
+      });
+    });
+
+    after(function() {
+      mockfs.restore();
+    });
+
+    it('should route folders to getFolderProperties()', function() {
+      const spy = sinon.spy();
+
+      getProperties.__with__({
+        getFolderProperties: spy
+      })(function() {
+        getProperties('/folder');
+        expect(spy).to.have.been.called;
+      });
+    });
+
+    it('should route files to getFileProperties()', function() {
+      const spy = sinon.spy();
+
+      getProperties.__with__({
+        getFileProperties: spy
+      })(function() {
+        getProperties('/file.ext');
+        expect(spy).to.have.been.called;
+      });
+    });
   });
 });

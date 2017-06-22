@@ -35,6 +35,8 @@
     "mocha": "^3.4.2",
     "mock-fs": "^4.4.1",
     "pascal-case": "^2.0.1",
-    "rewire": "^2.5.2"
+    "rewire": "^2.5.2",
+    "sinon": "^2.3.5",
+    "sinon-chai": "^2.11.0"
   }
 }
